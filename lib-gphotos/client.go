@@ -143,8 +143,8 @@ func (client *Client) UploadFile(filePath string, pAlbumID ...string) (*photosli
 			return nil, stacktrace.NewError("len(batchResults) should be 1")
 		}
 		result := batchResponse.NewMediaItemResults[0]
-		if result.Status.Message != "OK" {
-			return nil, stacktrace.NewError("status message should be OK, found: %s", result.Status.Message)
+		if result.Status.Message != "OK" && result.Status.Message != "Success" {
+			return nil, stacktrace.NewError("status message should be OK/Success, found: %s", result.Status.Message)
 		}
 
 		log.Printf("%s uploaded successfully as %s", filename, result.MediaItem.Id)
